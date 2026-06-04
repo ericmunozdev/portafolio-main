@@ -1,0 +1,71 @@
+services:
+  postgres:
+    container_name: postgresdb
+    image: postgres:17.5
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - net-pf
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:9.4
+    restart: always
+    ports:
+      - "8080:80"
+    links:
+      - 'postgres'
+    env_file:
+      - ./.env
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - net-pf
+    depends_on:
+      - postgres
+
+  # backend:
+  #   build:
+  #     context: ../portafolio-backend
+  #     dockerfile: Dockerfile
+  #   container_name: backend
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - ../portafolio-backend/.env
+  #   networks:
+  #     - net-pf
+  #   depends_on:
+  #     - postgres
+
+  # frontend:
+  #   build:
+  #     context: ../portafolio-frontend
+  #     dockerfile: Dockerfile
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:5173"
+  #   env_file:
+  #     - ../portafolio-frontend/.env
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - net-pf
+
+networks:
+  net-pf:
+    driver: bridge
+    name: portafolio-network
+
+volumes:
+  postgres_data:
+    driver: local
+    name: portafolio-postgresdata
+  pgadmin_data:
+    driver: local
+    name: portafolio-pgadmindata
