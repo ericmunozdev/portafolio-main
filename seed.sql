@@ -5,6 +5,8 @@ BEGIN
 
   -- LIMPIEZA DE REGISTROS
 	TRUNCATE TABLE
+    additional_technologies,
+    additional,
     experience_technologies,
     experience_responsibilities,
     experiences,
@@ -64,6 +66,7 @@ BEGIN
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'netcore31', '.NET Core 3.1', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'netframework45', '.NET Framework 4.5', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'nodejs', 'Node.js (Express)', null, true),
+  ((SELECT id FROM skill_category WHERE code = 'backend'), 'nest', 'Nest (Node.js)', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'php', 'PHP', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'python', 'Python', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'visualbasic', 'Visual Basic', null, true),
@@ -87,6 +90,7 @@ BEGIN
   ((SELECT id FROM skill_category WHERE code = 'frontend'), 'vuejs', 'Vue.js', null, true),
   ((SELECT id FROM skill_category WHERE code = 'frontend'), 'primevue', 'PrimeVue', null, true),
   ((SELECT id FROM skill_category WHERE code = 'frontend'), 'typescript', 'TypeScript', null, true),
+  ((SELECT id FROM skill_category WHERE code = 'frontend'), 'tailwind', 'Tailwind', null, true),
   ((SELECT id FROM skill_category WHERE code = 'frontend'), 'javascript', 'JavaScript', null, true),
   ((SELECT id FROM skill_category WHERE code = 'frontend'), 'jquery', 'jQuery', null, true),
   ((SELECT id FROM skill_category WHERE code = 'frontend'), 'ajax', 'Ajax', null, false),
@@ -158,6 +162,37 @@ BEGIN
   ((SELECT id FROM skill_category WHERE code = 'agil'), 'jira', 'Jira', null, true),
   ((SELECT id FROM skill_category WHERE code = 'agil'), 'confluence', 'Confluence', null, true),
   ((SELECT id FROM skill_category WHERE code = 'agil'), 'cicd', 'CI/CD', null, true);
+
+  -- CREACIÓN DE ADICIONALES
+  INSERT INTO additional (profile_id, code, content) VALUES
+	(profile_id, 'portafolio', 'Desarrollo del proyecto personal llamado portafolio disponible en la web | ericmunoz.dev'),
+  (profile_id, 'aguameyer', 'Página web para mostrar productos en venta | aguasmeyer.cl'),
+  (profile_id, 'vehiculo', 'Proyecto web que permitiria guardar mantenciones realizadas a los vehiculos'),
+  (profile_id, 'ggcc', 'Proyecto personal en PHP para la obtención de gastos comunes | galeriaalessandri.cl');
+
+  -- ASIGNACIÓN DE TECNOLOGÍAS A EXPERIENCIAS
+
+  INSERT INTO additional_technologies (additional_id, skill_id) VALUES
+  ((SELECT id FROM additional WHERE code = 'portafolio'), (SELECT id FROM skill WHERE code = 'angular')),
+  ((SELECT id FROM additional WHERE code = 'portafolio'), (SELECT id FROM skill WHERE code = 'tailwind')),
+  ((SELECT id FROM additional WHERE code = 'portafolio'), (SELECT id FROM skill WHERE code = 'net8')),
+  ((SELECT id FROM additional WHERE code = 'portafolio'), (SELECT id FROM skill WHERE code = 'postgresql'));
+
+  INSERT INTO additional_technologies (additional_id, skill_id) VALUES
+  ((SELECT id FROM additional WHERE code = 'aguameyer'), (SELECT id FROM skill WHERE code = 'php')),
+  ((SELECT id FROM additional WHERE code = 'aguameyer'), (SELECT id FROM skill WHERE code = 'tailwind')),
+  ((SELECT id FROM additional WHERE code = 'aguameyer'), (SELECT id FROM skill WHERE code = 'mariadb'));
+
+  INSERT INTO additional_technologies (additional_id, skill_id) VALUES
+  ((SELECT id FROM additional WHERE code = 'vehiculo'), (SELECT id FROM skill WHERE code = 'vuejs')),
+  ((SELECT id FROM additional WHERE code = 'vehiculo'), (SELECT id FROM skill WHERE code = 'primevue')),
+  ((SELECT id FROM additional WHERE code = 'vehiculo'), (SELECT id FROM skill WHERE code = 'nest')),
+  ((SELECT id FROM additional WHERE code = 'vehiculo'), (SELECT id FROM skill WHERE code = 'postgresql'));
+
+  INSERT INTO additional_technologies (additional_id, skill_id) VALUES
+  ((SELECT id FROM additional WHERE code = 'ggcc'), (SELECT id FROM skill WHERE code = 'php')),
+  ((SELECT id FROM additional WHERE code = 'ggcc'), (SELECT id FROM skill WHERE code = 'bootstrap')),
+  ((SELECT id FROM additional WHERE code = 'ggcc'), (SELECT id FROM skill WHERE code = 'mariadb'));
 
   -- CREACIÓN DE EXPERIENCIAS
 

@@ -1,5 +1,7 @@
 ------------------------ DROP TABLES IF THEY EXIST ------------------
 
+DROP TABLE IF EXISTS additional_technologies;
+DROP TABLE IF EXISTS additional;
 DROP TABLE IF EXISTS experience_technologies;
 DROP TABLE IF EXISTS experience_responsibilities;
 DROP TABLE IF EXISTS experiences;
@@ -112,6 +114,25 @@ CREATE TABLE skill (
     is_active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+CREATE TABLE additional (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+    code VARCHAR(50) NOT NULL UNIQUE,
+    content TEXT NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMPTZ NULL
+);
+
+CREATE TABLE additional_technologies (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    additional_id UUID NOT NULL REFERENCES additional(id) ON DELETE CASCADE,
+    skill_id SMALLINT NOT NULL REFERENCES skill(id) ON DELETE CASCADE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    CONSTRAINT uq_additional_technologies UNIQUE(additional_id, skill_id)
+);
+
 CREATE TABLE experiences (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
@@ -144,9 +165,6 @@ CREATE TABLE experience_technologies (
     experience_id UUID NOT NULL REFERENCES experiences(id) ON DELETE CASCADE,
     skill_id SMALLINT NOT NULL REFERENCES skill(id) ON DELETE CASCADE,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    deleted_at TIMESTAMPTZ NULL,
     CONSTRAINT uq_experience_technology UNIQUE(experience_id, skill_id)
 );
 
