@@ -74,7 +74,7 @@ CREATE TABLE conditions (
 CREATE TABLE languages (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     profile_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
-    language VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     level VARCHAR(10),
     description TEXT,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,

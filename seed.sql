@@ -41,7 +41,7 @@ BEGIN
 	(profile_id, 'modality', 'Modalidad', 'Remoto', null),
 	(profile_id, 'availability', 'Disponibilidad', 'Desde el 01 de Julio 2026', null);
 
-	INSERT INTO languages (profile_id, language, level, description) VALUES
+	INSERT INTO languages (profile_id, name, level, description) VALUES
 	(profile_id, 'Inglés', 'A1', 'Enfoque técnico');
 
 	INSERT INTO educations (profile_id, title, institution, graduation_year) VALUES
@@ -54,19 +54,19 @@ BEGIN
   INSERT INTO skill_category (profile_id, code, name, icon) VALUES (profile_id, 'backend', 'Backend', null);
   INSERT INTO skill (skill_category_id, code, name, icon, is_visible_gral) VALUES
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'asp', 'ASP (clásico)', null, false),
-  ((SELECT id FROM skill_category WHERE code = 'backend'), 'aspnet', 'ASP.NET', null, true),
+  ((SELECT id FROM skill_category WHERE code = 'backend'), 'aspnet', 'ASP.NET', null, false),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'aspnetmvc', 'ASP.NET MVC', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'csharp', 'C#', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'entityframework', 'Entity Framework', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'linq', 'LINQ', null, true),
-  ((SELECT id FROM skill_category WHERE code = 'backend'), 'net5', '.NET 5', null, true),
+  ((SELECT id FROM skill_category WHERE code = 'backend'), 'net5', '.NET 5', null, false),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'net6', '.NET 6', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'net8', '.NET 8', null, true),
-  ((SELECT id FROM skill_category WHERE code = 'backend'), 'netcore20', '.NET Core 2.0', null, true),
+  ((SELECT id FROM skill_category WHERE code = 'backend'), 'netcore20', '.NET Core 2.0', null, false),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'netcore31', '.NET Core 3.1', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'netframework45', '.NET Framework 4.5', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'nodejs', 'Node.js (Express)', null, true),
-  ((SELECT id FROM skill_category WHERE code = 'backend'), 'nest', 'Nest (Node.js)', null, true),
+  ((SELECT id FROM skill_category WHERE code = 'backend'), 'nest', 'Node.js (Nest)', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'php', 'PHP', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'python', 'Python', null, true),
   ((SELECT id FROM skill_category WHERE code = 'backend'), 'visualbasic', 'Visual Basic', null, true),
@@ -165,10 +165,10 @@ BEGIN
 
   -- CREACIÓN DE ADICIONALES
   INSERT INTO additional (profile_id, code, content) VALUES
-	(profile_id, 'portafolio', 'Desarrollo del proyecto personal llamado portafolio disponible en la web | ericmunoz.dev'),
-  (profile_id, 'aguameyer', 'Página web para mostrar productos en venta | aguasmeyer.cl'),
-  (profile_id, 'vehiculo', 'Proyecto web que permitiria guardar mantenciones realizadas a los vehiculos'),
-  (profile_id, 'ggcc', 'Proyecto personal en PHP para la obtención de gastos comunes | galeriaalessandri.cl');
+  (profile_id, 'portafolio', 'Desarrollo de portafolio personal | ericmunoz.dev'),
+  (profile_id, 'aguameyer', 'Desarrollo de página web estática para venta simple agua embotellada | aguasmeyer.cl'),
+  (profile_id, 'vehiculo', 'Desarrollo de proyecto personal para registrar mantenciones realizadas a los vehículos'),
+  (profile_id, 'ggcc', 'Desarrollo de sistema web para el cálculo de gastos comunes en edificio stgo centro | gastoscomunes.galeriaalessandri.cl');
 
   -- ASIGNACIÓN DE TECNOLOGÍAS A EXPERIENCIAS
 
@@ -273,6 +273,7 @@ BEGIN
   ((SELECT id FROM experiences WHERE code = 'consalud'), (SELECT id FROM skill WHERE code = 'net6')),
   ((SELECT id FROM experiences WHERE code = 'consalud'), (SELECT id FROM skill WHERE code = 'oracle11g')),
   ((SELECT id FROM experiences WHERE code = 'consalud'), (SELECT id FROM skill WHERE code = 'restapi')),
+  ((SELECT id FROM experiences WHERE code = 'consalud'), (SELECT id FROM skill WHERE code = 'swagger')),
   ((SELECT id FROM experiences WHERE code = 'consalud'), (SELECT id FROM skill WHERE code = 'wcf')),
   ((SELECT id FROM experiences WHERE code = 'consalud'), (SELECT id FROM skill WHERE code = 'xunit'));
 
@@ -292,6 +293,7 @@ BEGIN
   ((SELECT id FROM experiences WHERE code = 'cramer'), (SELECT id FROM skill WHERE code = 'net8')),
   ((SELECT id FROM experiences WHERE code = 'cramer'), (SELECT id FROM skill WHERE code = 'oracle19c')),
   ((SELECT id FROM experiences WHERE code = 'cramer'), (SELECT id FROM skill WHERE code = 'react')),
+  ((SELECT id FROM experiences WHERE code = 'cramer'), (SELECT id FROM skill WHERE code = 'swagger')),
   ((SELECT id FROM experiences WHERE code = 'cramer'), (SELECT id FROM skill WHERE code = 'webservice')),
   ((SELECT id FROM experiences WHERE code = 'cramer'), (SELECT id FROM skill WHERE code = 'xamarin'));
 
@@ -337,6 +339,7 @@ BEGIN
   ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'scrum')),
   ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'sonarqube')),
   ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'sqlserver')),
+  ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'swagger')),
   ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'tdd')),
   ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'tfs')),
   ((SELECT id FROM experiences WHERE code = 'sma'), (SELECT id FROM skill WHERE code = 'typescript')),
